@@ -8,3 +8,6 @@ The chapters of the course are :
 - Heritage principle
   - Basic Syntax
   - Method overriding
+
+Bonus :
+- Playing around with the unittest library
