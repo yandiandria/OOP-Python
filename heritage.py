@@ -18,6 +18,8 @@ class User:
         else :
             post = Post(content, self, creationDate)
         thread.add_post(post)
+        return post
+
     def display(self):
         return f"{self.username}"
 
@@ -26,10 +28,10 @@ class Moderator(User):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        def modify_post(self, post, new_content):
-            post.content = new_content
-        def delete_post(self, thread, post):
-            thread.posts.remove(post)
+    def modify_post(self, post, new_content):
+        post.content = new_content
+    def delete_post(self, thread, post):
+        thread.posts.remove(post)
 
 # Amélioration possible : avoir le même type de comportement entre toutes les méthodes display() => soit print, soit return un résultat, mais pas faire
 # soit l'un ou l'autre. 
@@ -80,20 +82,51 @@ class ImageFile :
         return f"Le nom de l'image est {self.name}"
 
 if __name__=="__main__":
-    ## Initialisation de l'utilisateur 1 qui va créer un fil de discussion et y poster un message
-    utilisateur1 = User("user1", "password")
-    fichierRecette = File("recette.pdf",8)
-    recetteGateau = utilisateur1.createNewThread(   "Nouvelle recette Tarte aux pommes",\
-                                                    "Je vous envoie une nouvelle recette de tarte aux pommes, elle est formidable !",\
-                                                    creationDate="03/11/2022")
+    question = "3"
 
-    ## Affichage du fil de discussion après sa création :
-    recetteGateau.display()
+    if question == "1":
+        ## Initialisation de l'utilisateur 1 qui va créer un fil de discussion et y poster un message
+        utilisateur1 = User("user1", "password")
+        fichierRecette = File("recette.pdf",8)
+        recetteGateau = utilisateur1.createNewThread(   "Nouvelle recette Tarte aux pommes",\
+                                                        "Je vous envoie une nouvelle recette de tarte aux pommes, elle est formidable !",\
+                                                        creationDate="03/11/2022")
 
-    print("")
+        ## Affichage du fil de discussion après sa création :
+        recetteGateau.display()
 
-    #Initialisation de l'utilisateur 2 qui répond à ce fil de discussion
-    utilisateur2 = User("user2", "samepassword")
-    utilisateur2.answerThread(recetteGateau, "Merci pour cette recette")
+        print("")
 
-    recetteGateau.display()
+        #Initialisation de l'utilisateur 2 qui répond à ce fil de discussion
+        utilisateur2 = User("user2", "samepassword")
+        utilisateur2.answerThread(recetteGateau, "Merci pour cette recette")
+
+        recetteGateau.display()
+
+    if question == "2":
+        user = User("myUser","motdepasse")
+        moderator = Moderator("theBigModerator","pwrd")
+        nouveau_thread = user.createNewThread("This is a thread", "Message of thread creation")
+        answer1 = moderator.answerThread(nouveau_thread,"Welcome to our forum !")
+
+        nouveau_thread.display()
+        print(" ")
+
+        answer2 = user.answerThread(nouveau_thread, "I enjoy running")
+        answer3 = moderator.answerThread(nouveau_thread, "Warning this message is off topic, I will delete it !")
+        print(" ")
+        nouveau_thread.display()
+        print(" ")
+
+        posts_to_delete = [answer1,answer2,answer3]
+        for post in posts_to_delete:
+            moderator.delete_post(nouveau_thread,post)
+
+        nouveau_thread.display()
+
+    if question=="3":
+        user = User("user123", "mdp")
+        user.display()
+
+        user = User("user321", "dpm")  
+        user.display()

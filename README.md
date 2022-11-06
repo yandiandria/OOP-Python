@@ -6,8 +6,10 @@ The reference course used is : https://openclassrooms.com/fr/courses/7150616-app
 The chapters of the course are :
 - Basic Syntax
 - Heritage principle
-  - Basic Syntax
-  - Method overriding
+  - Basic Syntax (class_syntax.py)
+  - Method overriding (heritage.py)
+- Structuring your code in files
+
 
 Bonus :
 - Playing around with the unittest library
