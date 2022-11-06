@@ -31,6 +31,8 @@ class Moderator(User):
         def delete_post(self, thread, post):
             thread.posts.remove(post)
 
+# Amélioration possible : avoir le même type de comportement entre toutes les méthodes display() => soit print, soit return un résultat, mais pas faire
+# soit l'un ou l'autre. 
 class Thread:
     def __init__(self,title, creationDate, post):
         self.title = title
