@@ -1,3 +1,5 @@
+from abc import ABC
+
 class User:
     def __init__(self, username, password):
         self.username = username
@@ -64,27 +66,32 @@ class PostFile(Post):
         print("Pièce jointe :")
         print(self.file.display())  
 
+
 class File :
-    def __init__(self, nom):
-        self.nom = nom
+    def __init__(self, name, taille):
+        self.name = name
+        self.taille = taille
     def display(self):
-        return f"Le nom du fichier est {self.nom}"
+        pass
+class ImageFile :
+    def display(self):
+        return f"Le nom de l'image est {self.name}"
 
+if __name__=="__main__":
+    ## Initialisation de l'utilisateur 1 qui va créer un fil de discussion et y poster un message
+    utilisateur1 = User("user1", "password")
+    fichierRecette = File("recette.pdf",8)
+    recetteGateau = utilisateur1.createNewThread(   "Nouvelle recette Tarte aux pommes",\
+                                                    "Je vous envoie une nouvelle recette de tarte aux pommes, elle est formidable !",\
+                                                    creationDate="03/11/2022")
 
-## Initialisation de l'utilisateur 1 qui va créer un fil de discussion et y poster un message
-utilisateur1 = User("user1", "password")
-fichierRecette = File("recette.pdf")
-recetteGateau = utilisateur1.createNewThread(   "Nouvelle recette Tarte aux pommes",\
-                                                "Je vous envoie une nouvelle recette de tarte aux pommes, elle est formidable !",\
-                                                creationDate="03/11/2022")
+    ## Affichage du fil de discussion après sa création :
+    recetteGateau.display()
 
-## Affichage du fil de discussion après sa création :
-recetteGateau.display()
+    print("")
 
-print("")
+    #Initialisation de l'utilisateur 2 qui répond à ce fil de discussion
+    utilisateur2 = User("user2", "samepassword")
+    utilisateur2.answerThread(recetteGateau, "Merci pour cette recette")
 
-#Initialisation de l'utilisateur 2 qui répond à ce fil de discussion
-utilisateur2 = User("user2", "samepassword")
-utilisateur2.answerThread(recetteGateau, "Merci pour cette recette")
-
-recetteGateau.display()
+    recetteGateau.display()
